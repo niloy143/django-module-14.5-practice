@@ -2,11 +2,11 @@ from django import forms
 
 BIRTH_YEAR_CHOICES = ['2002', '2003', '2005', '2006']
 BIRTH_MONTH_CHOICES = {
-    0: 'february', 
-    1: 'march', 
-    2: 'september', 
-    3: 'october', 
-    4: 'december'
+    0: 'February', 
+    1: 'March', 
+    2: 'September', 
+    3: 'October', 
+    4: 'December'
 }
 FAVORITE_COLORS_CHOICES = [
     ('blue', 'Blue'),
@@ -31,14 +31,20 @@ FAVORITE_PLAYER_CHOICES = [
 ]
 
 class DemoForm(forms.Form):
-    name = forms.CharField()
-    email = forms.EmailField()
-    comment = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), min_length=15)
-    date = forms.DateField(widget=forms.NumberInput(attrs={'type': 'date'}))
-    birth_year = forms.DateField(widget=forms.SelectDateWidget(years=BIRTH_YEAR_CHOICES, months=BIRTH_MONTH_CHOICES))
-    price = forms.DecimalField(required=False, label="Price of the comment", initial=7.5)
-    favorite_color = forms.ChoiceField(choices=FAVORITE_COLORS_CHOICES)
-    favorite_country = forms.ChoiceField(widget=forms.RadioSelect, choices=FAVORITE_COUNTRY_CHOICES)
-    favorite_personas = forms.MultipleChoiceField(choices=FAVORITE_PERSONA_CHOICES)
-    favorite_players = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=FAVORITE_PLAYER_CHOICES)
-    agreed = forms.BooleanField(initial=True)
+    name = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
+    comment = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), min_length=15, required=False)
+    date = forms.DateField(widget=forms.NumberInput(attrs={'type': 'date'}), required=False)
+    birth_year = forms.DateField(widget=forms.SelectDateWidget(years=BIRTH_YEAR_CHOICES, months=BIRTH_MONTH_CHOICES), required=False)
+    price = forms.DecimalField(label="Price of the comment", initial=7.5, required=False)
+    favorite_color = forms.ChoiceField(choices=FAVORITE_COLORS_CHOICES, required=False)
+    favorite_country = forms.ChoiceField(widget=forms.RadioSelect, choices=FAVORITE_COUNTRY_CHOICES, required=False)
+    favorite_personas = forms.MultipleChoiceField(choices=FAVORITE_PERSONA_CHOICES, required=False)
+    favorite_players = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=FAVORITE_PLAYER_CHOICES, required=False)
+    typed_choices = forms.TypedChoiceField(choices=[('test', "Test"), ('test2', "Test2")], required=False)
+    duration = forms.DurationField(required=False)
+    file = forms.FileField(required=False)
+    # file_path = forms.FilePathField(path="/static", required=False)
+    url = forms.URLField(required=False)
+    time = forms.TimeField(label_suffix="label_suffix", label="Yo", help_text="Yo means time in a language", error_messages={'invalid': "You messed up bro, get out."})
+    agreed = forms.BooleanField(initial=True, disabled=True, required=False)
